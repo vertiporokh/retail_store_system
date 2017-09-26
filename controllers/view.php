@@ -31,9 +31,10 @@ class view
 		}
 		ob_start();
 		include $this->view;
-		$content = ob_get_contents();
+		/*делаем что-тио еще*/
+		$this->view = ob_get_contents();
 		ob_end_clean();
-		return $content;
+		return $this->view;
 	}
 
 	public function count(){

@@ -1,6 +1,10 @@
 <?php
 namespace Application\Models;
 
+use Application\Classes\Db;
+use Application\Classes\E404Exception;
+use Application\Classes\validationException;
+
 class productGroup extends abstractModel{
 /**
 class ProductGroup

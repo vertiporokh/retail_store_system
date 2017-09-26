@@ -4,7 +4,11 @@
 	<title>Список Складов</title>
 </head>
 <body>
+	<a href='/warehouse/save'>Создать склад</a>
 	<table>
+		<?php if(empty($warehouses)): ?>
+			<tr><p>У вас нет складов</p></tr>
+		<?php endif; ?>
 		<?php foreach($warehouses as $warehouse): ?>
 			<tr>
 				<td><?php echo $warehouse->id; ?></td>

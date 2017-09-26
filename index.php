@@ -4,18 +4,21 @@
 	use Application\Controllers\View;
 	use Application\Classes\E404Exception;
 	use Application\Classes\validationException;
-	use Application\Controllers\Controller;
+	use Application\Controllers\mainController;
 	use Application\Classes\Answer;
 
 	require_once __DIR__.'/autoload.php';
 	
-	$mainController = new Controller();
+	$mainController = new MainController();
 
 	try{
 		$controllerClassName = 'Application\Controllers\\'.$mainController->ctrl;
 		$method = 'action'.$mainController->act;
 		$controller = new $controllerClassName;
 		$mainController->content = $controller->$method();
+		if(isset($mainController->content->_route)){
+			$maincontroller->redirect();
+		}
 		echo $mainController->output();
 	}
 	catch(validationException $e){

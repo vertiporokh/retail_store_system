@@ -25,9 +25,22 @@ class Answer{
 	public function getHtml(){
 		return $this->html;
 	}
+	public function setHtml($html){
+		
+		return $this->html = $html;
+	}
 
 	public function getData(){
 		return $this->data;
+	}
+	public function statusMessage($msg, $msgtype='success'){
+		//задаем сообщение и его тип. Возможные типы: success, warning, error
+		$this->status_message = array(	'type' 		=> 	$msgtype,
+										'message'	=>	$msg);
+	}
+	public function redirect($rout){
+		$this->_route = $route;
+		return $this;
 	}
 
 }

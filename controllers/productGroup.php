@@ -7,19 +7,53 @@ use Application\Controllers\View;
 use Application\Classes\Answer;
 use Application\Classes\E404Exception;
 use Application\Classes\Db;
+use Application\Controllers\Controller;
 
-class productGroup{
-
+class productGroup extends Controller{
 	public function actionIndex(){
+		return $this->actionGetAll();
+	}
 
-		$db = new Db();
-
-		if(isset($_GET['product_group_id'])){
-			$productGroups = productGroupModel::findByColumns(array('id'=>$_GET['product_group_id']));
-		}else{
-			$productGroups = productGroupModel::findByColumns();
+	public function actionSave(){
+		$productGroup = new productGroupModel();		
+		if(isset($_POST['name'])){
+			$productGroup->setPostData();
+			if(isset($_GET['product_group_id'])){
+				$productGroup->id = $_GET['product_group_id'];
+			}
+			$productGroup->save();
 		}
-		if(empty($productGroups)){
+		//если мы просто открыли форму для сохранения товарной группы, будет id, подгружаем данные
+		if(isset($_GET['product_group_id'])){
+			$productGroup = productGroupModel::getOne(array('id'=>$_GET['product_group_id']));
+		}
+		$view = new View();
+		$view->productGroup = $productGroup;
+		$html =  $view->render('saveProductGroup');
+		$answer = new Answer($html);
+		$answer->productGroups = $productGroup;
+		return $answer;
+	}
+
+
+	public function actionDelete(){
+		$productGroupe = new productGroupModel();
+		if(!isset($_GET['product_group_id']) || (int)$_GET['product_group_id']==0){
+			throw new E404Exception('Нужно указать Идентификатор группы');
+		}
+		$productGroupe->id = $_GET['product_group_id'];
+		if(!$productGroupe->delete()){
+			throw new Exception('Ошибка удаления Группы товаров');
+		}
+		$answer = new Answer();
+		$answer->statusMessage('товарная группа успешно удалена');
+		return $answer;
+		
+	}
+
+	public function actionGetAll($message = false){
+		$productGroups = productGroupModel::get();
+		if(!$productGroups){
 			throw new E404Exception('Упс, ничего не найдено...');
 		}
 		$view = new View();
@@ -30,36 +64,8 @@ class productGroup{
 		return $answer;
 	}
 
-	public function actionSave(){
-		$productGroup = new productGroupModel();
-		if(isset($_POST['name'])){
-			foreach(productGroupModel::$required_data as $required_data_key => $required_data_value){
-				if(isset( $_POST[$required_data_key]))
-					$productGroup->$required_data_key = $_POST[$required_data_key]; 
-			}
-			if(isset($_GET['product_group_id'])){
-				$productGroup->id = $_GET['product_group_id'];
-			}
-			$productGroup->save();
-		}else{
-			if(isset($_GET['product_group_id'])){
-				$productGroup = productGroupModel::findOneByPK($_GET['product_group_id']);
-			}
-		}
-		$view = new View();
-		$view->productGroup = $productGroup;
-		return $view->render('saveProductGroup');
-	}
+	public function actionTest(){
 
-
-	public function actionDelete(){
-		$productGroupe = new productGroupModel();
-		$productGroupe->id = $_GET['product_group_id'];
-		if(!$productGroupe->delete()){
-			throw new Exception('Ошибка удаления Группы товаров');
-		}
-		echo "товарная группа успешно удалена";
-		
 	}
 
 

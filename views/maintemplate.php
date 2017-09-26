@@ -1,7 +1,17 @@
+<?php
+//подключаем стили
+$mainController->addStyle('bootstrap/bootstrap');
+
+//подсключаем скрипты
+$mainController->addScript('jquery-3.2.1');
+$mainController->addScript('bootstrap/bootstrap')
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<title></title>
+	<meta charset='utf-8'/>
 	<?php foreach($mainController->getStyles() as $style): ?>
 		<style type="text/css" src="<?php echo $style; ?>"></style>
 	<?php endforeach; ?>

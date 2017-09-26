@@ -5,20 +5,20 @@ use Application\Classes\EmptyObject;
 use Application\Classes\MagicObject;
 use Application\Classes\Logger;
 
-final Class DBinside
+Class DBinside
 {
-  private $action, $alias, $data, $from, $insert, $join, $limit, $offset, $groupby, $having, $orderby, $result, $set, $values, $what, $where, $union = '';
-  private $_doit = false, $_magic = false, $_mysqli;
+  protected $action, $alias, $data, $from, $insert, $join, $limit, $offset, $groupby, $having, $orderby, $result, $set, $values, $what, $where, $union = '';
+  protected $_doit = false, $_magic = false, $_mysqli;
 
   public function __construct($mysqli) {
     $this->_mysqli = $mysqli;
   }
 
-  private function _error($error) {
+  protected function _error($error) {
     die("<div style=\"font-family:Trebuchet MS;font-size:12px;margin:20% auto 0 auto;text-align:center;\">Ошибка! {$error}.</div>");
   }
 
-  private function _generateQuery($with_union = false) {
+  protected function _generateQuery($with_union = false) {
                           $query  = "{$this->action} {$this->what}";
     if ($this->from   )   $query .= " FROM {$this->from}".($this->alias ? " {$this->alias}" : '');
     if ($this->join   )   $query .=   $this->join;
@@ -46,7 +46,7 @@ final Class DBinside
     return $query;
   }
 
-  private function _getDataForLog() {
+  protected function _getDataForLog() {
     if ($this->action == 'INSERT INTO') {
       return $this->data;
     }
@@ -57,7 +57,7 @@ final Class DBinside
 
     $this->result = $this->_mysqli->query($query);
     if ($this->_mysqli->errno) {
-      throw new Exception("QUERY: {$query}, ERROR: ".$this->_mysqli->error);
+      throw new \Exception("QUERY: {$query}, ERROR: ".$this->_mysqli->error);
     }
     $this->_doit = true;
 
@@ -100,7 +100,7 @@ final Class DBinside
     return $changes;
   }
 
-  private function _getResult($type, $index) {
+  protected function _getResult($type, $index, $className = 'stdClass') {
     if (!$this->_doit) {
       $this->doit(!is_array($index) && !is_numeric($index) ? $index : false);
     }
@@ -119,7 +119,7 @@ final Class DBinside
 
     $i = 0;
     $fetch = "fetch_{$type}";
-    while ($row = $this->result->{$fetch}()) {
+    while ($row = $this->result->{$fetch}($type == 'object' ? $className : '')) {
       $i++;
       if (is_array($index) && !in_array($i, $index)) {
         continue;
@@ -132,13 +132,13 @@ final Class DBinside
         return (object)$row;
       }
 
-      array_push($result, ($type == 'assoc' ? (object)$row : $row));
+      array_push($result, (($type == 'assoc') ? (object)$row : $row)); //немного подкорректируем метод, чтобы он воспринимал классы
     }
 
     return $result;
   }
 
-  private function _join($what, $how, $type) {
+  protected function _join($what, $how, $type) {
     $alias = $what;
 
     if (preg_match("/\s/", $what)) {
@@ -227,7 +227,7 @@ final Class DBinside
 
   public function update($what) {
     if ($this->action) {
-      throw new Exception('DB::action is already set');
+      throw new \Exception('DB::action is already set');
     }
 
     $this->action = 'UPDATE';
@@ -265,7 +265,7 @@ final Class DBinside
 
   public function insert() {
     if ($this->action) {
-      throw new Exception('DB::action is already set');
+      throw new \Exception('DB::action is already set');
     }
 
     $this->action = 'INSERT INTO';
@@ -294,7 +294,7 @@ final Class DBinside
       foreach ($data as $i => $item) {
         $item = ($item instanceof MagicObject ? $item->__toArray() : (array)$item);
 
-        if (!$values[$i]) {
+        if (!isset($values[$i])) {
           $values[$i] = $this->data[$i] = [];
         }
 
@@ -435,7 +435,7 @@ final Class DBinside
       $this->result = $this->_mysqli->query($query);
 
       if ($this->_mysqli->errno) {
-        throw new Exception("DB error: QUERY: {$query}, ERROR: ".$this->_mysqli->error);
+        throw new \Exception("DB error: QUERY: {$query}, ERROR: ".$this->_mysqli->error);
       }
 
       $this->_doit = true;
@@ -455,7 +455,7 @@ final Class DBinside
       $this->_mysqli->query($query);
 
       if ($this->_mysqli->errno) {
-        throw new Exception("DB error: QUERY: {$query}, ERROR: ".$this->_mysqli->error);
+        throw new \Exception("DB error: QUERY: {$query}, ERROR: ".$this->_mysqli->error);
       }
 
       if ($this->action == 'INSERT INTO') {

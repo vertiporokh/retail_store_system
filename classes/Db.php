@@ -1,13 +1,15 @@
 <?php //defined('CONTROL') or defined('CORE') or die();
 
 namespace Application\Classes;
-use Application\Classes\DBinside;
+use Application\Classes\DBinsideExt;
 use Application\Classes\Config;
 
 final class Db
 {
   private $_db, $_mysqli;
+  private $className = 'stdClass';
   public  $cache = [];
+
 
   public function __construct($config = false) {
     if ($config instanceof mysqli) {
@@ -16,7 +18,7 @@ final class Db
       $this->_connect($config);
     }
 
-    $this->_db = new DBinside($this->_mysqli);
+    $this->_db = new DBinsideExt($this->_mysqli, $this->className);
   }
 
   public function __get($table) {
@@ -51,7 +53,7 @@ final class Db
     if (!$this->_mysqli || $this->_mysqli->connect_errno) {
       $this->_error('Нет доступа к базе данных');
     }
-    $this->_mysqli->query('SET NAMES UTF8');
+    $this->_mysqli->query('SET NAMES '.Config::DB_CHARSET);
 
     if (isset($config['timezone'])) {
       date_default_timezone_set((string)$config['timezone']);
@@ -65,7 +67,7 @@ final class Db
   }
 
   private function _action($action, $params = null) {
-    $this->_db = new DBinside($this->_mysqli);
+    $this->_db = new DBinsideExt($this->_mysqli, $this->className);
     return $this->_db->{$action}($params);
   }
 
@@ -95,5 +97,9 @@ final class Db
 
   public function rollback() {
     $this->_db->rollback();
+  }
+
+  public function setClassName($className){
+      $this->className = $className;
   }
 }

@@ -1,6 +1,8 @@
 <?php
 namespace Application\Models;
 
+use Application\Models\productGroup;
+
 class product extends abstractModel{
 /**
 class Product
@@ -16,9 +18,24 @@ class Product
 @property $retail_price 
 
 **/
-protected static $table = 'product';
+protected 	static $table = 'product';
+public 		static $required_data = array(	'id'			=>false,
+											'name'			=>true,
+											'description' 	=>false,
+											'parent_id'		=>false,
+											'image'			=>false,
+											'purchase_price'		=>false,
+											'large_opt_price'		=>false,
+											'medium_opt_price'		=>false,
+											'small_opt_price'		=>false,
+											'retail_price'			=>true);
+private $parent = false;
+
+public function getParent(){
+	return $this->parent = productGroup::getOne(array('id'=>$this->parent_id));
 }
 
+}
 
 
 
