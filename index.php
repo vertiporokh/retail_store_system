@@ -8,13 +8,14 @@
 	use Application\Classes\Answer;
 
 	require_once __DIR__.'/autoload.php';
-	
-	$mainController = new MainController();
+	session_start();
+	$mainController = MainController::getInstance();
 
 	try{
 		$controllerClassName = 'Application\Controllers\\'.$mainController->ctrl;
 		$method = 'action'.$mainController->act;
 		$controller = new $controllerClassName;
+		$controller->id = $mainController->obj_id ? $mainController->obj_id : 0;
 		$mainController->content = $controller->$method();
 		if(isset($mainController->content->_route)){
 			$maincontroller->redirect();
@@ -22,7 +23,12 @@
 		echo $mainController->output();
 	}
 	catch(validationException $e){
-		var_dump($e);
+		$log = new Log();
+		$log->write($e);
+		$view = new View();
+		$view->error = $e;
+		$mainController->content = new Answer($view->render('error'), $e);
+		echo $mainController->output();
 	}
 	catch(\PDOException $e){
 		//временно, переделать

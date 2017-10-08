@@ -4,6 +4,7 @@ namespace Application\Classes;
 class Answer{
 	private $html='';
 	private $data=array();
+	private $statusMessages = array();
 
 	public function __construct($html='', $data = array()){
 		$this->html = $html;
@@ -31,12 +32,15 @@ class Answer{
 	}
 
 	public function getData(){
-		return $this->data;
+		$result = $this->data;
+		$result['statusMessages'] = $this->statusMessages;
+		return $result;
 	}
-	public function statusMessage($msg, $msgtype='success'){
+	public function statusMessage($msg, $target='message_box', $msgtype='success'){
 		//задаем сообщение и его тип. Возможные типы: success, warning, error
-		$this->status_message = array(	'type' 		=> 	$msgtype,
-										'message'	=>	$msg);
+		$this->statusMessages[] = array(	'type' 		=> 	$msgtype,
+											'message'	=>	$msg,
+											'target'	=>	$target);
 	}
 	public function redirect($rout){
 		$this->_route = $route;

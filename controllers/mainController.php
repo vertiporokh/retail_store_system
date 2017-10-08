@@ -9,11 +9,12 @@ class mainController{
 	protected $data = array();
 	protected $styles = array();
 	protected $scripts = array();
-	private static $instance = null;
+	private static $_instance = null;
 
-	public function __construct(){
+	private function __construct(){
 			$this->post = $_POST;
 			$this->get = $_GET;
+			$this->host = $_SERVER['HTTP_HOST'];
 			$this->request = $_SERVER['REQUEST_URI'];
 			$this->path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 			$pathParts = explode('/', $this->path);
@@ -23,6 +24,11 @@ class mainController{
 			}
 			$this->ctrl = !empty($pathParts[$i]) ? ucfirst($pathParts[$i]) : 'User';
 			$this->act = !empty($pathParts[$i+1]) ? ucfirst($pathParts[$i+1]) : 'Index';
+			$this->obj_id = (!empty($pathParts[$i+2]) && (int)$pathParts[$i+2]>0) ? (int)$pathParts[$i+2] : false;
+			//проверяем, авторизован ли пользователь
+			if(!isset($_SESSION['user_id'])&& $this->ctrl != 'User' && ($this->act != 'Login' && $this->act != 'Register')){
+				header('Location: /user/login');
+			}
 			//проверяем, нужен ли основной шаблон, нужно ли вернуть данные в формате json. Задает формат ответа
 			$this->maintemplate = true;
 			$this->json = false;
@@ -36,11 +42,19 @@ class mainController{
 			}
 	}
 
+	public static function getinstance(){
+		if(is_null(self::$_instance)){
+			return self::$_instance = new self;
+		}
+		return self::$_instance;
+	}
+
 	public function output(){
 		if($this->json==='true'){
 			//если нужен ответ в формате json, главный шаблон не нужен
 			//пока что криво работает, надо преобразование в json делать нормальным
-			return json_encode($this->content->getData());
+			$data = $this->content->getData();
+			return json_encode($data, true);
 		}
 		elseif($this->maintemplate === 'false'){
 			//если вдруг нужен шаблон контроллера без главного

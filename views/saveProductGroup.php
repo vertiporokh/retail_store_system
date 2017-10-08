@@ -5,7 +5,7 @@
 </head>
 <body>
 <?php var_dump($productGroup)?>
-	<form name="productGroup" action="/productGroup/save<?php echo isset($productGroup->id) ? '?product_groupe_id='.$productGroup->id : ''  ?>" method="POST">
+	<form name="productGroup" action="/productGroup/save?php echo isset($productGroup->id) ? '/'.$productGroup->id : ''  ?>" method="POST">
 		<h1><?php echo isset($productGroup->id) ? 'Редактирование товарной группы' : 'Создание товарной группы'  ?></h1>
 		<label>Имя группы</label>
 		<input type="text" name="name" value="<?php echo $productGroup->name; ?>"/><br/>

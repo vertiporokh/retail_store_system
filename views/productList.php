@@ -33,8 +33,8 @@
 				<td><?php echo $product->medium_opt_price ? $product->medium_opt_price : 'нет'; ?></td>
 				<td><?php echo $product->small_opt_price; ?></td>
 				<td><?php echo $product->retail_price; ?></td>
-				<td><a href="/product/save?product_id=<?= $product->id ?>">Изменить</a></td>
-				<td><a href="/product/delete?product_id=<?= $product->id ?>">Удалить</a></td>
+				<td><a href="/product/save/<?= $product->id ?>">Изменить</a></td>
+				<td><a href="/product/delete/<?= $product->id ?>">Удалить</a></td>
 			</tr>
 		<?php endforeach; ?>
 	</table>

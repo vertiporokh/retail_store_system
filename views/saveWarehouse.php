@@ -4,7 +4,7 @@
 	<title>Создание/Редактирование склада</title>
 </head>
 <body>
-	<form name="warehouse" action="/warehouse/save<?php echo isset($warehouse->id) ? '?warehouse_id='.$warehouse->id : '' ?>" method="POST">
+	<form name="warehouse" action="/warehouse/save<?php echo isset($warehouse->id) ? '/'.$warehouse->id : '' ?>" method="POST">
 		<h1><?php echo isset($warehouse->id) ? 'Редактирование склада' : 'Создание склада'  ?></h1>
 		<label>Наименование склада</label>
 		<input type="text" name="name" value="<?php echo $warehouse->name; ?>"/><br/>

@@ -15,11 +15,7 @@ class warehouse extends Controller{
 		return $this->actionGetAll();
 	}
 	public function actionSave(){
-		$warehouse = new warehouseModel();
-		//если есть warehouse_id, значит редактируем
-		if(isset($_GET['warehouse_id']) && (int)$_GET['warehouse_id'] > 0){
-			$warehouse = warehouseModel::getOne(array('id'=> (int)$_GET['warehouse_id']));
-		}
+		$warehouse = new warehouseModel($this->id);
 		//если есть post-данные, то сохраняем или создаем новый склад.
 		if(isset($_POST['name'])){
 			$warehouse->setPostData();
@@ -35,10 +31,10 @@ class warehouse extends Controller{
 
 	public function actionDelete(){
 		$warehouse = new warehouseModel();
-		if(!isset($_GET['warehouse_id']) || (int)$_GET['warehouse_id']==0){
+		if(!$this->id){
 			throw new E404Exception('Не указан идентификатор склада');
 		}
-		$warehouse->id = $_GET['warehouse_id'];
+		$warehouse->id = $this->id;
 		if(!$warehouse->delete()){
 			throw new Exception('Ошибка удаления Склада');
 		}

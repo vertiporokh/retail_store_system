@@ -4,7 +4,7 @@
 	<title>Товар</title>
 </head>
 <body>
-	<form name="product" action="/product/save<?php echo isset($product->id) ? '?product_id='.$product->id : ''  ?>" method="POST">
+	<form name="product" action="/product/save<?php echo isset($product->id) ? '/'.$product->id : ''  ?>" method="POST">
 		<h1><?php echo isset($product->id) ? 'Редактирование товара' : 'Создание товара'  ?></h1>
 		<label>Имя</label>
 		<input type="text" name="name" value="<?php echo $product->name; ?>"/><br/>

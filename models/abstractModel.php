@@ -13,10 +13,16 @@ abstract class AbstractModel
 
 	protected $data = [];
 
-	public function __construct(){
-		/*foreach(static::$required_data as $property => $value){
-			$this->data[$property] = '';
-		}*/
+	public function __construct($id = false){
+		if($id && $id>0){
+			$model = static::getOne(array('id'=>$id));
+			if($model && $model instanceof static){
+				foreach(static::$required_data as $k => $v){
+					$this->$k = $model->$k;
+				}				
+			}
+		}
+		return $this;
 	}
 
 	public function __set($k, $v){

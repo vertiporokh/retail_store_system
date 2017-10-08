@@ -15,17 +15,10 @@ class productGroup extends Controller{
 	}
 
 	public function actionSave(){
-		$productGroup = new productGroupModel();		
+		$productGroup = new productGroupModel($this->id);		
 		if(isset($_POST['name'])){
 			$productGroup->setPostData();
-			if(isset($_GET['product_group_id'])){
-				$productGroup->id = $_GET['product_group_id'];
-			}
 			$productGroup->save();
-		}
-		//если мы просто открыли форму для сохранения товарной группы, будет id, подгружаем данные
-		if(isset($_GET['product_group_id'])){
-			$productGroup = productGroupModel::getOne(array('id'=>$_GET['product_group_id']));
 		}
 		$view = new View();
 		$view->productGroup = $productGroup;
@@ -38,10 +31,10 @@ class productGroup extends Controller{
 
 	public function actionDelete(){
 		$productGroupe = new productGroupModel();
-		if(!isset($_GET['product_group_id']) || (int)$_GET['product_group_id']==0){
+		if(!$this->id){
 			throw new E404Exception('Нужно указать Идентификатор группы');
 		}
-		$productGroupe->id = $_GET['product_group_id'];
+		$productGroupe->id = $this->id;
 		if(!$productGroupe->delete()){
 			throw new Exception('Ошибка удаления Группы товаров');
 		}

@@ -6,22 +6,17 @@ use Application\Models\productGroup as productGroupModel;
 use Application\Controllers\View;
 use Application\Classes\Answer;
 use Application\Classes\E404Exception;
+use Application\Classes\Exception;
 use Application\Classes\Db;
 use Application\Controllers\Controller;
 
 class product extends Controller{
 	public function actionSave(){
-		$product = new productModel();		
+		$product = new productModel($this->id);		
 		if(isset($_POST['name'])){
 			$product->setPostData();
-			if(isset($_GET['product_id'])){
-				$product->id = $_GET['product_id'];
-			}
+			$product->id = $this->id;
 			$product->save();
-		}
-		//если мы просто открыли форму для сохранения товарной группы, будет id, подгружаем данные
-		if(isset($_GET['product_id'])){
-			$product = productModel::getOne(array('id'=>$_GET['product_id']));
 		}
 		$view = new View();
 		$view->product = $product;
@@ -34,12 +29,12 @@ class product extends Controller{
 
 
 	public function actionDelete(){
-		$producte = new productModel();
-		if(!isset($_GET['product_id']) || (int)$_GET['product_id']==0){
-			throw new Exception('Нужно указать Идентификатор товара');
+		$product = new productModel();
+		if(!$this->id){
+			throw new E404Exception('Нужно указать Идентификатор товара');
 		}
-		$producte->id = $_GET['product_id'];
-		if(!$producte->delete()){
+		$product->id = $this->id;
+		if(!$product->delete()){
 			throw new Exception('Ошибка удаления Группы товаров');
 		}
 		$answer = new Answer();
