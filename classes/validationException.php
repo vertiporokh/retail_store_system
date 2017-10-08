@@ -7,6 +7,10 @@ class validationException extends \Exception{
 	public function __construct($msg, $target='msgBox', $type='error'){
 		$this->statusMessages[] = array('message'=>$msg, 'target'=> $target, 'type'=>$type);
 	}
+
+	public function getStatusMessages(){
+		return $this->statusMessages;
+	}
 } 
 
 

@@ -73,3 +73,13 @@
 08:10:2017 21:27 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
 08:10:2017 21:28 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
 08:10:2017 21:30 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 21:51 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 21:56 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 22:30 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\classes\DbInside.php [Сообщение об ошибке]DB error: QUERY: (SELECT * FROM user WHERE login  IN (rustam1,sdfsdf,123,123,true)), ERROR: Unknown column 'rustam1' in 'where clause'
+08:10:2017 22:31 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 22:33 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 22:33 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\classes\DbInside.php [Сообщение об ошибке]DB error: QUERY: (SELECT * FROM user WHERE login  IN (rustam1,sdfsdf,123,123,true)), ERROR: Unknown column 'rustam1' in 'where clause'
+08:10:2017 22:46 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 22:47 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 22:48 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 22:49 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\classes\DbInside.php [Сообщение об ошибке]DB error: QUERY: (SELECT * FROM user WHERE login  IN (rustam,sdfsdf,123,123,true)), ERROR: Unknown column 'rustam' in 'where clause'

@@ -9,6 +9,13 @@ class Answer{
 	public function __construct($html='', $data = array()){
 		$this->html = $html;
 		$this->data = $data;
+		if($data instanceof \Application\Classes\ValidationException){
+			foreach($data->getStatusMessages() as $statusMessage){
+				$this->statusMessage( $statusMessage['message'], $statusMessage['target'], $statusMessage['type']);
+			}
+		}elseif($data instanceof \Application\Classes\Exception){
+			$this->statusMessage($e->getMessage(),'msgBox', 'error');
+		}
 	}
 
 	public function __set($k, $v){
@@ -36,7 +43,7 @@ class Answer{
 		$result['statusMessages'] = $this->statusMessages;
 		return $result;
 	}
-	public function statusMessage($msg, $target='message_box', $msgtype='success'){
+	public function statusMessage($msg, $target='msgBox', $msgtype='success'){
 		//задаем сообщение и его тип. Возможные типы: success, warning, error
 		$this->statusMessages[] = array(	'type' 		=> 	$msgtype,
 											'message'	=>	$msg,

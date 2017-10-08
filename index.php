@@ -27,20 +27,8 @@
 		$log->write($e);
 		$view = new View();
 		$view->error = $e;
-		$mainController->content = new Answer($view->render('error'), $e);
-		echo $mainController->output();
-	}
-	catch(\PDOException $e){
-		//временно, переделать
-		var_dump($e);
-	}
-	catch(E404Exception $e){
-		//временно, переделать
-		$log = new Log();
-		$log->write($e);
-		$view = new View();
-		$view->error = $e;
-		$mainController->content = new Answer($view->render('error404'), $e);
+		$answer = new Answer($view->render('error'), $e);
+		$mainController->content = $answer;
 		echo $mainController->output();
 	}
 	catch(\Exception $e){
@@ -49,7 +37,8 @@
 		$log->write($e);
 		$view = new View();
 		$view->error = $e;
-		$mainController->content = new Answer($view->render('error'), $e);
+		$answer = new Answer($view->render('error'), $e);
+		$mainController->content = $answer;
 		echo $mainController->output();
 	}
 
