@@ -3,10 +3,11 @@ namespace Application\Classes;
 
 class Log
 {
-	private static $logfile = __DIR__.'/../log/log.txt';
+	private static $logfile = '';
 	private $filedesc = '';
 
 	public function __construct(){
+		self::$logfile = __DIR__.'/../log/log.txt';
 		$this->filedesc = fopen(static::$logfile, 'a+');
 	}
 

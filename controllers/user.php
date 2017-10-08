@@ -7,7 +7,7 @@ use Application\Classes\ValidationException;
 use Application\Controllers\View;
 
 
-class User{
+class User extends \Application\Controllers\controller{
 	public function actionIndex(){
 		return $this->actionGetAll();
 	}
@@ -69,13 +69,14 @@ class User{
 		$answer = new Answer($html);
 		if(isset($_POST['login'])){
 			//добавить нормальную валидацию, когда появится класс
-			$user = userModel::get(array('login'=>$_POST));
+			$user = userModel::get(array('login'=>$_POST['login']));
 			if($user){
 				throw new ValidationException('Пользователь с таким Email уже зарегистрирован', 'login');
 			}
 			if($_POST['pass'] != $_POST['repass']){
 				throw new ValidationException('Пароли не совпадают. Проверьте правильность', 'repass');	
 			}
+			$user = new userModel();
 			$user->setPostData();
 			//генерируем hash
 			$user->hash = $this->generateHash(20);
@@ -84,8 +85,7 @@ class User{
 				throw new ValidationException('Что-то пошло не так. Попробуйте еще раз через некоторое время');	
 			}
 			//отправляем email для подтверждения. Когда появится соответсующий класс
-			var_dump($this->mainController->host.'/user/confirm?user_id='.$user->id.'&hash='.$user->hash);die;
-			mail($_POST['login'], 'Регистрация в системе складского учета', $this->mainController->host.'/user/confirm?user_id='.$user->id.'&hash='.$user->hash);
+			//mail($_POST['login'], 'Регистрация в системе складского учета', $this->mainController->host.'/user/confirm?user_id='.$user->id.'&hash='.$user->hash);
 		}
 		return new Answer($html);
 	}

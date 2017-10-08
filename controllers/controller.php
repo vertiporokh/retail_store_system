@@ -5,7 +5,7 @@ use Application\Classes\Answer;
 use Application\Controllers\View;
 use Application\Controllers\MainController;
 
-class controller{
+abstract class controller{
 	protected $answer;
 	protected $view;
 	protected $maincontroller;
@@ -22,11 +22,6 @@ class controller{
 
 	public function actionGetAll(){
 
-	}
-
-	public function sendAnswer(){
-		$this->answer->setHtml($this->view->view);
-		return $this->answer;
 	}
 }
 

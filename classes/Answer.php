@@ -32,7 +32,7 @@ class Answer{
 	}
 
 	public function getData(){
-		$result = $this->data;
+		$result['data'] = $this->data;
 		$result['statusMessages'] = $this->statusMessages;
 		return $result;
 	}

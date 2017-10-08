@@ -57,3 +57,19 @@
 05:10:2017 15:12 [Место]:D:\distr\EasyPHP-Devserver-16.1\eds-www\controllers\user.php [Сообщение об ошибке]
 05:10:2017 16:39 [Место]:D:\distr\EasyPHP-Devserver-16.1\eds-www\classes\DbInside.php [Сообщение об ошибке]DB error: QUERY: (SELECT * FROM user WHERE login  IN (,,,,true)), ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',,,true))' at line 1
 05:10:2017 16:48 [Место]:D:\distr\EasyPHP-Devserver-16.1\eds-www\classes\DbInside.php [Сообщение об ошибке]DB error: QUERY: (SELECT * FROM user WHERE login  IN (,,,,true)), ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',,,true))' at line 1
+08:10:2017 20:26 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\classes\DbInside.php [Сообщение об ошибке]DB error: QUERY: (SELECT * FROM user WHERE login  IN (admin,Рустам,admin,admin,true)), ERROR: Unknown column 'Рустам' in 'where clause'
+08:10:2017 20:42 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\classes\DbInside.php [Сообщение об ошибке]DB error: QUERY: (SELECT * FROM user WHERE login  IN (admin,Рустам,admin,admin,true)), ERROR: Unknown column 'Рустам' in 'where clause'
+08:10:2017 20:46 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\classes\DbInside.php [Сообщение об ошибке]DB error: QUERY: (SELECT * FROM user WHERE login  IN (admin,Рустам,admin,admin,true)), ERROR: Unknown column 'Рустам' in 'where clause'
+08:10:2017 20:47 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\classes\DbInside.php [Сообщение об ошибке]DB error: QUERY: (SELECT * FROM user WHERE login  IN (admin,Рустам,admin,admin,true)), ERROR: Unknown column 'Рустам' in 'where clause'
+08:10:2017 20:50 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\classes\DbInside.php [Сообщение об ошибке]DB error: QUERY: (SELECT * FROM user WHERE login  IN (admin,Рустам,admin,admin,true)), ERROR: Unknown column 'Рустам' in 'where clause'
+08:10:2017 20:53 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\classes\DbInside.php [Сообщение об ошибке]DB error: QUERY: (SELECT * FROM user WHERE login  IN (rustam1,Рустам,123,123,true)), ERROR: Unknown column 'rustam1' in 'where clause'
+08:10:2017 20:55 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\classes\DbInside.php [Сообщение об ошибке]DB error: QUERY: (SELECT * FROM user WHERE login  IN (rustam1,Рустам,123,123,true)), ERROR: Unknown column 'rustam1' in 'where clause'
+08:10:2017 20:59 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 20:59 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 21:19 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 21:22 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 21:23 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 21:24 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 21:27 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 21:28 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]
+08:10:2017 21:30 [Место]:C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\controllers\user.php [Сообщение об ошибке]

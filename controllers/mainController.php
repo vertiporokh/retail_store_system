@@ -26,7 +26,7 @@ class mainController{
 			$this->act = !empty($pathParts[$i+1]) ? ucfirst($pathParts[$i+1]) : 'Index';
 			$this->obj_id = (!empty($pathParts[$i+2]) && (int)$pathParts[$i+2]>0) ? (int)$pathParts[$i+2] : false;
 			//проверяем, авторизован ли пользователь
-			if(!isset($_SESSION['user_id'])&& $this->ctrl != 'User' && ($this->act != 'Login' && $this->act != 'Register')){
+			if(!isset($_SESSION['user_id'])&& ($this->ctrl != 'User' && ($this->act != 'Login' || $this->act != 'Register'))){
 				header('Location: /user/login');
 			}
 			//проверяем, нужен ли основной шаблон, нужно ли вернуть данные в формате json. Задает формат ответа

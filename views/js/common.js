@@ -19,9 +19,9 @@ $(document).ready(function(){
 			json: true,
 			data: params,
 			success: function(data){
-				alert(data); return;
+				//alert(data);
 				var j_data = jQuery.parseJSON(data);
-				//alert(j_data.statusMessages.target);
+				alert(j_data);
 				if(j_data.statusMessages.length>0){
 					$(j_data.statusMessages).each(function(ind, statusMessage){
 						if($('input[name='+statusMessage.target+']')){
@@ -31,6 +31,8 @@ $(document).ready(function(){
 							alert(statusMessage.message);
 						}
 					});
+				}else{
+					alert(j_data.data);
 				}
 			},
 			error: function(xhr, str){
